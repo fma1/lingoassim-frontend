@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
       flex: 1,
       resizeMode: 'cover',
     },
-    container0: {
+    outerView: {
         flex: 1,
         alignSelf: 'stretch',
         alignItems: 'center',
@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
         borderBottomColor: '#FFFFFF',
     },
     button: {
+      borderRadius: 4,
       backgroundColor: '#006dcc',
       marginTop: 10,
       marginLeft: -15,
@@ -66,13 +67,13 @@ const styles = StyleSheet.create({
 
 const Game = ({ questionIndex, question, answer, jumbledParts, selectedParts, handlePress, handleSubmit, navigation }) => (
   <ImageBackground
-    source={require('./background-design-marble-850796.jpg')}
-    style={styles.container0}
+    source={require('../theme/images/blue-notebook-paper.jpg')}
+    style={styles.outerView}
     imageStyle={styles.backgroundImage}
   >
     <View style={styles.container1}>
       <Text h4>{`Write this in ...:\n`}</Text>
-      <Text style={styles.question}>{question}</Text>
+      <Text fontFamily="Roboto" style={styles.question}>{question}</Text>
     </View>
     <View style={styles.container3}>
       {selectedParts.map(selectedPart => <Button buttonStyle={styles.button} key={keyIdx++} title={selectedPart} onPress={() => handlePress({ selectedPart })} />)}

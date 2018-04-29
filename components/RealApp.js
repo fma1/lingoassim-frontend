@@ -5,24 +5,15 @@ import Game from './Game';
 import Score from './Score';
 
 const RootNavigator = StackNavigator({
-    Main: {
-        screen: Home,
-        navigationOptions: {
-          headerTitle: 'Home',
-        },
-    },
-    Game: {
-      screen: Game,
-      navigationOptions: {
-        headerTitle: 'LingoAssim',
-      }
-    },
-    Score: {
-      screen: Score,
-      navigationOptions: {
-        headerTitle: 'Score',
-      }
-    }
+    Main: { screen: Home },
+    Game: { screen: Game },
+    Score: { screen: Score }
+},
+{
+  headerMode: 'none',
+  navigationOptions: {
+    headerVisible: false,
+  }
 });
 
 export default RootNavigator;

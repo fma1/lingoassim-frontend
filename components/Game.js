@@ -6,6 +6,7 @@ import { getSelectedParts, getSelectedPart, takeSelectedPart } from '../store/se
 import { getJumbledPartThunker, takeJumbledPartThunker } from '../store/jumbledPartsList';
 import { incrementQuestionIndex } from '../store/questionIndex';
 import { incrementCurrentPoints } from '../store/currentPoints';
+import { incrementScoreThunker } from '../store/score';
 
 let keyIdx = 0;
 
@@ -80,7 +81,7 @@ const Game = ({ questionIndex, question, answer, jumbledParts, selectedParts, ha
       {jumbledParts.map(jumbledPart => <Button buttonStyle={styles.button} key={keyIdx++} title={jumbledPart} onPress={() => handlePress({ jumbledPart })} />)}
     </View>
     <View style={styles.container1}>
-      <Button buttonStyle={styles.submitButton} onPress={() => handleSubmit({ selectedParts, answer, questionIndex, navigation })} title='Submit my answer' />
+      <Button buttonStyle={styles.submitButton} onPress={() => handleSubmit({ selectedParts, answer, questionIndex, navigation })} title="Submit my answer" />
     </View>
   </ImageBackground>
 );
@@ -90,7 +91,7 @@ const mapStateToProps = (state) => ({
   question: state.questionsList[state.questionIndex],
   answer: state.answersList[state.questionIndex],
   jumbledParts: state.jumbledPartsList[state.questionIndex],
-  selectedParts: state.selectedParts
+  selectedParts: state.selectedParts,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -104,19 +105,18 @@ const mapDispatchToProps = (dispatch) => ({
     }
   },
   handleSubmit(obj) {
-    console.log('answer: ', obj.selectedParts.join('').replace(/\s+/g, ''));
-    console.log('correct answer: ', obj.answer);
     if (obj.selectedParts.join('').replace(/\s+/g, '') === obj.answer.replace(/\s+/g, '')) {
       Alert.alert('Success', 'You got the answer right!', [{text: 'OK'}], { cancelable: false });
       dispatch(incrementCurrentPoints());
     } else {
-      Alert.alert('Failure', 'You got the answer wrong.', [{text: 'OK'}], { cancelable: false });
+      Alert.alert('Failure', `You got the answer wrong. The answer was -${obj.answer}-`, [{text: 'OK'}], { cancelable: false });
     }
 
     dispatch(getSelectedParts([]));
     if (obj.questionIndex < 9) {
       dispatch(incrementQuestionIndex());
     } else {
+      dispatch(incrementScoreThunker());
       obj.navigation.navigate('Score');
     }
   }

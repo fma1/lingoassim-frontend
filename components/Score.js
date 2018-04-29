@@ -10,12 +10,16 @@ const styles = StyleSheet.create({
     },
 });
 
-const Home = ({ currentPoints }) => (
+const Home = ({ currentPoints, score }) => (
   <View style={styles.container}>
     <Text>Points obtained: { currentPoints }</Text>
+    <Text>Your score is now: { score }</Text>
   </View>
 );
 
-const mapStateToProps = (state) => ({ currentPoints: state.currentPoints });
+const mapStateToProps = (state) => ({
+  currentPoints: state.currentPoints,
+  score: state.score,
+});
 
 export default connect(mapStateToProps)(Home);

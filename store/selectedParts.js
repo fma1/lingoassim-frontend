@@ -8,8 +8,6 @@ export const getSelectedPart = (jumbledPart) => ({ type: GET_SELECTED_PART, jumb
 export const takeSelectedPart = (jumbledPart) => ({ type: TAKE_SELECTED_PART, jumbledPart });
 
 export const reducer = (state = [], action) => {
-  console.log('action.jumbledPart: ', action.jumbledPart);
-  console.log('action.jumbledParts: ', action.jumbledParts);
   switch (action.type) {
     case GET_SELECTED_PARTS:
       return action.jumbledParts;

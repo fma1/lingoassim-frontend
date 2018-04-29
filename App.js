@@ -2,34 +2,29 @@
 import * as Expo from 'expo';
 import React from 'react';
 import RealApp from './components/RealApp';
-import store from './store';
-import { fetchQuestionList } from './store/questionList';
+import configureStore from './store';
+import { Provider } from 'react-redux';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isReady: false,
+      isLoading: false,
+      store: configureStore(() => this.setState({ isLoading: false })),
     };
   }
 
-  async loadData() {
-    console.log('Loading data...');
-    await store.dispatch(fetchQuestionList());
-    this.setState({ isReady: true });
-  }
-
-  async componentDidMount() {
-    await this.loadData();
-  }
-
   render() {
-    if (!this.state.isReady) {
+    if (this.state.isLoading) {
       console.log('Returning load screen...');
       return <Expo.AppLoading />;
     } else {
       console.log('RealApp...');
-      return <RealApp />;
+      return (
+        <Provider store={this.state.store}>
+          <RealApp />
+        </Provider>
+      );
     }
   }
 }

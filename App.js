@@ -14,7 +14,7 @@ export default class App extends React.Component {
   }
 
   async loadData() {
-    console.log("Loading data...");
+    console.log('Loading data...');
     await store.dispatch(fetchQuestionList());
     this.setState({ isReady: true });
   }
@@ -25,10 +25,10 @@ export default class App extends React.Component {
 
   render() {
     if (!this.state.isReady) {
-      console.log("Returning load screen...");
+      console.log('Returning load screen...');
       return <Expo.AppLoading />;
     } else {
-      console.log("RealApp...");
+      console.log('RealApp...');
       return <RealApp />;
     }
   }

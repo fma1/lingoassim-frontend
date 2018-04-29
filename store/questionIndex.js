@@ -4,7 +4,7 @@ export const getQuestionIndex = (questionIndex) => ({ type: GET_QUESTION_INDEX, 
 
 export const incrementQuestionIndex = () =>
   (dispatch, getState) =>
-    dispatch(getQuestionIndex(getState.questionIndex + 1));
+    dispatch(getQuestionIndex(getState().questionIndex + 1));
 
 export const resetQuestionIndex = () =>
   (dispatch) =>

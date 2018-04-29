@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { StackNavigator } from 'react-navigation';
 import Home from './Home';
 import Game from './Game';
+import Score from './Score';
 import store from '../store';
 
 const RootNavigator = StackNavigator({
@@ -16,7 +17,13 @@ const RootNavigator = StackNavigator({
     Game: {
       screen: Game,
       navigationOptions: {
-        headerTitle: 'LingoAssim'
+        headerTitle: 'LingoAssim',
+      }
+    },
+    Score: {
+      screen: Score,
+      navigationOptions: {
+        headerTitle: 'Score',
       }
     }
 });

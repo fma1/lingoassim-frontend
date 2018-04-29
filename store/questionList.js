@@ -1,23 +1,15 @@
 import axios from 'axios';
-
-const GET_QUESTION_LIST = 'GET_QUESTION_LIST';
-
-const getQuestionList = (questionList) => ({ type: GET_QUESTION_LIST, questionList });
+import { getQuestions } from './questionsList';
+import { getAnswers } from './answersList';
+import { getJumbledParts } from './jumbledPartsList';
 
 export const fetchQuestionList = () =>
   dispatch =>
     axios.get('https://lingoassim-backend.herokuapp.com/questionList')
       .then(res => res.data)
-      .then(questionList => dispatch(getQuestionList(questionList)))
+      .then(questionList => {
+        dispatch(getQuestions(questionList.map(question => question.question)));
+        dispatch(getAnswers(questionList.map(question => question.answer)));
+        dispatch(getJumbledParts(questionList.map(question => question.jumbledParts)));
+      })
       .catch(console.error.bind(console));
-
-export const reducer = (state = [], action) => {
-  switch (action.type) {
-    case GET_QUESTION_LIST:
-      return action.questionList;
-    default:
-      return state;
-  }
-};
-
-export default reducer;

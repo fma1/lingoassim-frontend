@@ -1,6 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { StyleSheet, Text, View, Button } from 'react-native';
-import { StackNavigator } from 'react-navigation';
 
 const styles = StyleSheet.create({
     container: {
@@ -11,10 +11,18 @@ const styles = StyleSheet.create({
     },
 });
 
-const Game = () => (
+const Game = ({ question, answer, jumbledParts }) => (
   <View style={styles.container}>
-    <Text>This is my Game Component!</Text>
+    <Text>{`Write this in ...:\n`}</Text>
+    <Text>{question}</Text>
+    {jumbledParts.map(jumbledPart => <Button key={jumbledPart} title={jumbledPart} />)}
   </View>
 );
 
-export default Game;
+const mapStateToProps = (state) => ({
+  question: state.questionList[state.questionIndex].question,
+  answer: state.questionList[state.questionIndex].answer,
+  jumbledParts: state.questionList[state.questionIndex].jumbledParts,
+});
+
+export default connect(mapStateToProps)(Game);

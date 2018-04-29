@@ -1,32 +1,35 @@
 /* eslint-disable new-cap */
-import { StackNavigator } from 'react-navigation';
-import Home from './components/Home';
-import Game from './components/Game';
+import * as Expo from 'expo';
+import React from 'react';
+import RealApp from './components/RealApp';
+import store from './store';
+import { fetchQuestionList } from './store/questionList';
 
-/*
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
-*/
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isReady: false,
+    };
+  }
 
-const RootNavigator = StackNavigator({
-    Main: {
-        screen: Home,
-        navigationOptions: {
-          headerTitle: 'Home',
-        },
-    },
-    Game: {
-      screen: Game,
-      navigationOptions: {
-        headerTitle: 'LingoAssim'
-      }
+  async loadData() {
+    console.log("Loading data...");
+    await store.dispatch(fetchQuestionList());
+    this.setState({ isReady: true });
+  }
+
+  async componentDidMount() {
+    await this.loadData();
+  }
+
+  render() {
+    if (!this.state.isReady) {
+      console.log("Returning load screen...");
+      return <Expo.AppLoading />;
+    } else {
+      console.log("RealApp...");
+      return <RealApp />;
     }
-});
-
-export default RootNavigator;
+  }
+}

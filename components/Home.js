@@ -1,6 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { StackNavigator } from 'react-navigation';
+import { StyleSheet, View, Button } from 'react-native';
 
 const styles = StyleSheet.create({
     container: {
@@ -10,9 +9,12 @@ const styles = StyleSheet.create({
     },
 });
 
-const Home = () => (
+const Home = ({ navigation }) => (
   <View style={styles.container}>
-    <Text>Check out my Home Screen!</Text>
+    <Button
+      onPress={() => navigation.navigate('Game')}
+      title="Start Game"
+    />
   </View>
 );
 
